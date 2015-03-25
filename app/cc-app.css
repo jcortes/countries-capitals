@@ -1,0 +1,18 @@
+header.container {
+    margin-bottom: 1em;
+}
+
+.container {
+    width: 80%;
+}
+
+.table-responsive {
+    height: 25em;
+    overflow: auto;
+}
+
+.nav-tabs > li, 
+.nav-pills > li {
+    float:none;
+    display:inline-block;
+}

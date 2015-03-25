@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries And Capitals</title>
+    
+    <!-- build:css ./_assets/combined.css -->
+    <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./cc-app.css"/>
+    <!-- endbuild -->
+</head>
+
+<body ng-app="ccApp">
+    
+    <header class="container text-center">
+        <div class="page-header">
+            <h1>Countries And Capitals</h1>
+        </div>
+    </header>
+    
+    <div class="container text-center">
+        <div ng-view class="cc-view"></div>
+    </div>
+    
+    <div class="container" ng-controller="NavCtrl">
+        <div class="col-md-12 text-center">
+            <ul class="nav nav-pills">
+                <li ng-if="!navConf.isHome"><a role="button" class="btn btn-primary" href="#!/">Home</a></li>
+                <li ng-if="!navConf.isCountries"><a role="button" class="btn btn-primary" href="#!/countries">Browse Countries</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- build:js ./_assets/combined.js -->
+    <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="./cc-library.js"></script>
+    <script type="text/javascript" src="./cc-nav.js"></script>
+    <script type="text/javascript" src="./cc-app-views.js"></script>
+    <script type="text/javascript" src="./home/home.js"></script>
+    <script type="text/javascript" src="./countries/countries.js"></script>
+    <script type="text/javascript" src="./countries/country.js"></script>
+    <script type="text/javascript" src="./cc-app.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

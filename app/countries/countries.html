@@ -1,0 +1,26 @@
+<div class="col-md-14 text-justify">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Country Code</th>
+                    <th>Capital</th>
+                    <th>Area in km2</th>
+                    <th>Population</th>
+                    <th>Continent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="country in countries">
+                    <td>{{country.name}}</td>
+                    <td>{{country.code}}</td>
+                    <td>{{country.capital}}</td>
+                    <td>{{country.area}}</td>
+                    <td>{{country.population}}</td>
+                    <td>{{country.continent}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
