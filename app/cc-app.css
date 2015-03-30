@@ -6,13 +6,42 @@ header.container {
     width: 80%;
 }
 
-.table-responsive {
-    height: 25em;
-    overflow: auto;
-}
-
 .nav-tabs > li, 
 .nav-pills > li {
     float:none;
     display:inline-block;
+}
+
+table {
+    width: 100%;
+}
+
+thead, tbody, tr, td, th { 
+    display: block; 
+}
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 30px;
+}
+
+tbody {
+    height: 25em;
+    overflow-y: auto;
+}
+
+tbody td, thead th {
+    width: 16.65%;
+    float: left;
+}
+
+.flag, .map {
+    width: 15em;
+    height: 15em;
 }

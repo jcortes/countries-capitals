@@ -26,8 +26,8 @@
     <div class="container" ng-controller="NavCtrl">
         <div class="col-md-12 text-center">
             <ul class="nav nav-pills">
-                <li ng-if="!navConf.isHome"><a role="button" class="btn btn-primary" href="#!/">Home</a></li>
-                <li ng-if="!navConf.isCountries"><a role="button" class="btn btn-primary" href="#!/countries">Browse Countries</a></li>
+                <li ng-if="nav.current != '/'"><a role="button" class="btn btn-primary" href="#!/">Home</a></li>
+                <li ng-if="nav.current != '/countries'"><a role="button" class="btn btn-primary" href="#!/countries">Browse Countries</a></li>
             </ul>
         </div>
     </div>

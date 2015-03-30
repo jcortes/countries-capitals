@@ -12,12 +12,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="country in countries">
-                    <td>{{country.name}}</td>
-                    <td>{{country.code}}</td>
+                <tr ng-repeat="country in countries" ng-click="setSelected()" >
+                    <td>{{country.countryName}}</td>
+                    <td>{{country.countryCode}}</td>
                     <td>{{country.capital}}</td>
-                    <td>{{country.area}}</td>
-                    <td>{{country.population}}</td>
+                    <td>{{country.areaInSqKm | number}}</td>
+                    <td>{{country.population | number}}</td>
                     <td>{{country.continent}}</td>
                 </tr>
             </tbody>
