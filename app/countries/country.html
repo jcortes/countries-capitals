@@ -1,6 +1,6 @@
 <div class="col-md-8 col-md-offset-2 text-justify">
     <h2>{{ country.countryName }}</h2>
-    <div class="row">
+    <div class="row top-buffer">
         <div class="col-md-6 text-right">
             Population of Country:
         </div>
@@ -8,7 +8,7 @@
             {{ country.population | number }}
         </div>
     </div>
-    <div class="row">
+    <div class="row top-buffer">
         <div class="col-md-6 text-right">
             Area: 
         </div>
@@ -16,7 +16,7 @@
             {{ country.areaInSqKm | number }} square km
         </div>
     </div>
-    <div class="row">
+    <div class="row top-buffer">
         <div class="col-md-6 text-right">
             Capital: 
         </div>
@@ -24,7 +24,7 @@
             {{ country.capital }}
         </div>
     </div>
-    <div class="row">
+    <div class="row top-buffer">
         <div class="col-md-6 text-right">
             Population of Capital: 
         </div>
@@ -32,7 +32,7 @@
             {{ country.capital_pop | number }}
         </div>
     </div>
-    <div class="row">
+    <div class="row top-buffer">
         <div class="col-md-6 text-right">
             {{ country.neighbors.length }} neighbors: 
         </div>
@@ -42,11 +42,11 @@
             </span>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 text-center">
+    <div class="row top-buffer">
+        <div class="col-md-6 text-right">
             <img class="flag" ng-src="http://www.geonames.org/flags/x/{{country.countryCode | lowercase}}.gif"/>
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-md-6 text-left">
             <img class="map" ng-src="http://www.geonames.org/img/country/250/{{country.countryCode | uppercase}}.png"/>
         </div>
     </div>

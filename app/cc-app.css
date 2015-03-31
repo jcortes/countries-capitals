@@ -1,3 +1,7 @@
+.cc-view {
+    margin-bottom: 2em;
+}
+
 header.container {
     margin-bottom: 1em;
 }
@@ -42,6 +46,32 @@ tbody td, thead th {
 }
 
 .flag, .map {
-    width: 15em;
-    height: 15em;
+    width: 10em;
+    height: 7em;
 }
+
+.cc-body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    position: relative;
+}
+
+.loading {
+	position:relative;
+	height:100%;
+}
+
+.loading:before {
+	position:absolute;
+	content:"";
+	left:0;
+	bottom:0;
+	right:0;
+	top:0;
+	z-index:1000;
+	background:rgba(255,255,255,0.9) no-repeat center center;
+	background-image: url('img/loading-animation.gif');
+}
+
+.top-buffer { margin-top: 1em; }

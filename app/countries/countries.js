@@ -5,16 +5,16 @@ viewsModule.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-viewsModule.controller('CountriesCtrl', ['$scope', '$location', 'ccCountries', 'ccCountryData', function($scope, $location, ccCountries, ccCountryData) {
+viewsModule.controller('CountriesCtrl', ['$scope', '$rootScope', '$location', 'ccCountries', function($scope, $rootScope, $location, ccCountries) {
     var vm = $scope;
     
+    $rootScope.isLoading = true;
     ccCountries.getCountries().then(function(data){
         vm.countries = data.data.geonames;
+        $rootScope.isLoading = false;
     });
     
     vm.setSelected = function(){
-        ccCountryData.countryName = this.country.countryName;
-        ccCountryData.geonameId = this.country.geonameId;
         $location.path('/countries/' + this.country.countryCode);
     };
 }]);

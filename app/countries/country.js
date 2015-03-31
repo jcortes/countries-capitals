@@ -5,19 +5,16 @@ viewsModule.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-viewsModule.controller('CountryCtrl', ['$scope', '$routeParams', 'ccCountries', 'ccCapPopulation', 'ccNeighbors', 'ccCapitalReq', 'ccNeighborsReq', function($scope, $routeParams, ccCountries, ccCapPopulation, ccNeighbors, ccCapitalReq, ccNeighborsReq) {
+viewsModule.controller('CountryCtrl', ['$scope', '$rootScope', '$routeParams', 'ccCountries', 'ccCapPopulation', 'ccNeighbors', 'ccCapitalReq', 'ccNeighborsReq', function($scope, $rootScope, $routeParams, ccCountries, ccCapPopulation, ccNeighbors, ccCapitalReq, ccNeighborsReq) {
     var vm = $scope;
     
-    ccCountries.getCountry($routeParams.country)
-    .then(function(data){
+    ccCountries.getCountry($routeParams.country).then(function(data){
         vm.country = data;
-        
         ccCapitalReq(data.countryCode, data.countryName).then(function(data){
             vm.country.capital_pop = ccCapPopulation(data);
         });
-        
-        ccNeighborsReq(data.geonameId).then(function(data){
-            vm.country.neighbors = ccNeighbors(data);
+        ccNeighborsReq(data.geonameId).then(function(ndata){
+            vm.country.neighbors = ccNeighbors(ndata);
         });
     });
 }]);

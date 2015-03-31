@@ -11,7 +11,7 @@
     <!-- endbuild -->
 </head>
 
-<body ng-app="ccApp">
+<body ng-app="ccApp" class="cc-body" ng-class="{loading: isLoading}">
     
     <header class="container text-center">
         <div class="page-header">
@@ -19,8 +19,8 @@
         </div>
     </header>
     
-    <div class="container text-center">
-        <div ng-view class="cc-view"></div>
+    <div class="container text-center cc-view">
+        <div ng-view></div>
     </div>
     
     <div class="container" ng-controller="NavCtrl">
@@ -42,6 +42,7 @@
     <script type="text/javascript" src="./home/home.js"></script>
     <script type="text/javascript" src="./countries/countries.js"></script>
     <script type="text/javascript" src="./countries/country.js"></script>
+    <script type="text/javascript" src="./error/error.js"></script>
     <script type="text/javascript" src="./cc-app.js"></script>
     <!-- endbuild -->
 </body>

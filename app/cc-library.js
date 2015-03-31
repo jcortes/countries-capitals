@@ -5,16 +5,9 @@ angular.module('ccLibrary', [])
 .constant('CC_NEIGHBOURS', '/neighboursJSON?geonameId={{ geonameId }}&username={{ username }}')
 .constant('CC_SEARCH', '/searchJSON?q={{ q }}&country={{ country }}&name_equals={{name_equals }}&isNameRequired={{ isNameRequired }}&username={{ username }}')
 
-.value('ccCountryData', {})
-
-.factory('ccCountries', ['$http', '$q', '$interpolate', 'CC_API_PREFIX', 'CC_COUNTRY_INFO', 
-                         function($http, $q, $interpolate, CC_API_PREFIX, CC_COUNTRY_INFO){
-    
+.factory('ccCountries', ['$location', '$http', '$q', '$interpolate', 'CC_API_PREFIX', 'CC_COUNTRY_INFO', 
+                         function($location, $http, $q, $interpolate, CC_API_PREFIX, CC_COUNTRY_INFO){
     var _countries = null;
-    var services = {
-        getCountries: getCountries,
-        getCountry: getCountry
-    };
     
     function getCountries(){
         var path = $interpolate(CC_API_PREFIX + CC_COUNTRY_INFO)({username: 'jcortes'});
@@ -29,16 +22,20 @@ angular.module('ccLibrary', [])
         })
         .error(function(data, status){
             console.log('Error status: ' + status);
+            $location.path('/error');
         });
     }
-    
+                             
     function getCountry(code){
         var defer = $q.defer();
         defer.resolve(_countries[code]);
         return defer.promise;
     }
     
-    return services;
+    return {
+        getCountries: getCountries,
+        getCountry: getCountry
+    };
 }])
 
 .factory('ccRequest', ['$http', '$q', 'CC_API_PREFIX', 
@@ -71,11 +68,11 @@ angular.module('ccLibrary', [])
 }])
 
 .factory('ccCapPopulation', function(){
-    return function(capData){
+    return function(data){
         var population = 0;
-        for(var i=0; i<capData.geonames.length; i++){
-            if(capData.geonames[i].fcodeName.indexOf('capital') > -1){
-                population = capData.geonames[i].population;
+        for(var i=0; i<data.geonames.length; i++){
+            if(data.geonames[i].fcodeName.indexOf('capital') > -1){
+                population = data.geonames[i].population;
             }
         }
         return population;
@@ -94,12 +91,12 @@ angular.module('ccLibrary', [])
 }])
 
 .factory('ccNeighbors', function(){
-    return function(neighborsData){
+    return function(data){
         var neighbors = [];
-        for(var i=0; i<neighborsData.geonames.length; i++){
+        for(var i=0; i<data.geonames.length; i++){
             neighbors.push({
-                countryCode: neighborsData.geonames[i].countryCode,
-                countryName: neighborsData.geonames[i].countryName,
+                countryCode: data.geonames[i].countryCode,
+                countryName: data.geonames[i].countryName,
             });
         }
         return neighbors;
