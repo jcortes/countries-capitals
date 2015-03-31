@@ -1,22 +1,23 @@
 viewsModule.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when("/countries/:country", {
         templateUrl: "./countries/country.html",
-        controller: 'CountryCtrl as cc',
-        resolve: {
-            capData: ['ccCountryData', 'ccCapitalReq', function(ccCountryData, ccCapitalReq){
-                return ccCapitalReq(ccCountryData.countryCode, ccCountryData.countryName);
-            }],
-            neighborsData: ['ccCountryData', 'ccNeighborsReq', function(ccCountryData, ccNeighborsReq){
-                return ccNeighborsReq(ccCountryData.geonameId);
-            }]
-        }
+        controller: 'CountryCtrl as cc'
     });
 }]);
 
-viewsModule.controller('CountryCtrl', ['$scope', 'ccCountryData', 'capData', 'ccCapPopulation', 'neighborsData', 'ccNeighbors',
-                                       function($scope, ccCountryData, capData, ccCapPopulation, neighborsData, ccNeighbors) {
+viewsModule.controller('CountryCtrl', ['$scope', '$routeParams', 'ccCountries', 'ccCapPopulation', 'ccNeighbors', 'ccCapitalReq', 'ccNeighborsReq', function($scope, $routeParams, ccCountries, ccCapPopulation, ccNeighbors, ccCapitalReq, ccNeighborsReq) {
     var vm = $scope;
-    vm.country = ccCountryData;
-    vm.country.capital_pop = ccCapPopulation(capData);
-    vm.country.neighbors = ccNeighbors(neighborsData);
+    
+    ccCountries.getCountry($routeParams.country)
+    .then(function(data){
+        vm.country = data;
+        
+        ccCapitalReq(data.countryCode, data.countryName).then(function(data){
+            vm.country.capital_pop = ccCapPopulation(data);
+        });
+        
+        ccNeighborsReq(data.geonameId).then(function(data){
+            vm.country.neighbors = ccNeighbors(data);
+        });
+    });
 }]);

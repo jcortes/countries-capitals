@@ -7,26 +7,43 @@ angular.module('ccLibrary', [])
 
 .value('ccCountryData', {})
 
-.factory('ccAllCountries', ['$http', '$q', '$interpolate', 'CC_API_PREFIX', 'CC_COUNTRY_INFO',
-                            function($http, $q, $interpolate, CC_API_PREFIX, CC_COUNTRY_INFO){
-    return function() {
+.factory('ccCountries', ['$http', '$q', '$interpolate', 'CC_API_PREFIX', 'CC_COUNTRY_INFO', 
+                         function($http, $q, $interpolate, CC_API_PREFIX, CC_COUNTRY_INFO){
+    
+    var _countries = null;
+    var services = {
+        getCountries: getCountries,
+        getCountry: getCountry
+    };
+    
+    function getCountries(){
         var path = $interpolate(CC_API_PREFIX + CC_COUNTRY_INFO)({username: 'jcortes'});
-        var defer = $q.defer();
-        $http.get(path, { cache : true })
+        return $http.get(path, {cache:true})
         .success(function(data) {
-            defer.resolve(data);
+            if(_countries === null){
+                _countries = [];
+                angular.forEach(data.geonames, function(country){
+                    _countries[country.countryCode] = country;
+                });
+            }
         })
         .error(function(data, status){
             console.log('Error status: ' + status);
         });
+    }
+    
+    function getCountry(code){
+        var defer = $q.defer();
+        defer.resolve(_countries[code]);
         return defer.promise;
-    };
+    }
+    
+    return services;
 }])
 
 .factory('ccRequest', ['$http', '$q', 'CC_API_PREFIX', 
                        function($http, $q, CC_API_PREFIX) {
     return function(path) {
-        console.log(path);
         var defer = $q.defer();
         $http.get(CC_API_PREFIX + path)
         .success(function(data){
@@ -55,7 +72,6 @@ angular.module('ccLibrary', [])
 
 .factory('ccCapPopulation', function(){
     return function(capData){
-        console.log(capData);
         var population = 0;
         for(var i=0; i<capData.geonames.length; i++){
             if(capData.geonames[i].fcodeName.indexOf('capital') > -1){
