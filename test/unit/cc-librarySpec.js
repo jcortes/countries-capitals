@@ -7,7 +7,7 @@ describe('ccLibrary module', function(){
         jasmine.getJSONFixtures().fixturesPath = 'base/test/mock';
     });
     
-    describe('ccCountries factory', function(){
+    xdescribe('ccCountries factory', function(){
         var ccCountries, $httpBackend, countriesRes;
         
         beforeEach(inject(function($injector) {
@@ -60,7 +60,7 @@ describe('ccLibrary module', function(){
         });
     });
     
-    describe('ccRequest factory', function(){
+    xdescribe('ccRequest factory', function(){
         var ccRequest, $httpBackend, $rootScope, searchADRes, neighboursADRes;
         
         beforeEach(inject(function($injector) {
@@ -90,7 +90,7 @@ describe('ccLibrary module', function(){
             expect(result).toEqual(searchADRes);
         });
         
-        it('Should query the Andorra country neighbours and must be 2', function(){
+        it('Should query the Andorra country neighbours, must be 2', function(){
             $httpBackend.expectGET('http://api.geonames.org/neighboursJSON?geonameId=3041565&username=jcortes').respond(neighboursADRes);
             //make the call
             var promise = ccRequest('/neighboursJSON?geonameId=3041565&username=jcortes');
@@ -104,8 +104,33 @@ describe('ccLibrary module', function(){
         });
     });
     
-    xdescribe('ccCapitalReq factory', function(){
+    describe('ccCapitalReq factory', function(){
+        var $rootScope, ccCapitalReq, searchADRes;
         
+        beforeEach(function(){
+            searchADRes = getJSONFixture('searchAD.json');
+            module('ccLibrary', function($provide, $q){
+                $provide.value('ccRequest', function(code){
+                    var deferred = $q.deferred;
+                    deferred.resolve(searchADRes);
+                    return deferred.promise;
+                });
+            });
+        });
+        
+        beforeEach(inject(function($injector) {            
+            // Set up the mock http service responses
+            $rootScope = $injector.get('$rootScope');
+            ccCapitalReq = $injector.get('ccCapitalReq');
+            
+        }));
+        
+        it('Sould return the capital of Andorrra', function(){
+            ccCapitalReq('AD', 'Andorra').then(function(res){
+                dump(res);
+                expect(res).toEqual(searchADRes);
+            });
+        });        
     });
     
     xdescribe('ccCapPopulation factory', function(){
