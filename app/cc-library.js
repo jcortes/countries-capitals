@@ -42,8 +42,10 @@ angular.module('ccLibrary', [])
                        function($http, $q, CC_API_PREFIX) {
     return function(path) {
         var defer = $q.defer();
+        //console.log(CC_API_PREFIX + path);
         $http.get(CC_API_PREFIX + path)
         .success(function(data){
+            //console.log(data);
             defer.resolve(data);
         })
         .error(function(data, status){
