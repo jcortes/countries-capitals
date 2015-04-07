@@ -7,7 +7,7 @@ describe('ccLibrary module', function(){
         jasmine.getJSONFixtures().fixturesPath = 'base/test/mock';
     });
     
-    xdescribe('ccCountries factory', function(){
+    describe('ccCountries factory', function(){
         var ccCountries, $httpBackend, countriesRes;
         
         beforeEach(inject(function($injector) {
@@ -60,7 +60,7 @@ describe('ccLibrary module', function(){
         });
     });
     
-    xdescribe('ccRequest factory', function(){
+    describe('ccRequest factory', function(){
         var ccRequest, $httpBackend, $rootScope, searchADRes, neighboursADRes;
         
         beforeEach(inject(function($injector) {
@@ -105,15 +105,21 @@ describe('ccLibrary module', function(){
     });
     
     describe('ccCapitalReq factory', function(){
-        var $rootScope, ccCapitalReq, searchADRes;
+        var $rootScope, ccCapitalReq, searchADRes, passPromise;
         
+        // very useful 'Mocking Methods Returning Promises'
+        // http://www.sitepoint.com/mocking-dependencies-angularjs-tests/
         beforeEach(function(){
             searchADRes = getJSONFixture('searchAD.json');
-            module('ccLibrary', function($provide, $q){
-                $provide.value('ccRequest', function(code){
-                    var deferred = $q.deferred;
-                    deferred.resolve(searchADRes);
-                    return deferred.promise;
+            module(function($provide){
+                $provide.factory('ccRequest', function($q){
+                    return function(path){
+                        if(passPromise){
+                            return $q.when(searchADRes);
+                        } else {
+                            return $q.reject({});
+                        }
+                    };
                 });
             });
         });
@@ -122,26 +128,77 @@ describe('ccLibrary module', function(){
             // Set up the mock http service responses
             $rootScope = $injector.get('$rootScope');
             ccCapitalReq = $injector.get('ccCapitalReq');
-            
         }));
         
         it('Sould return the capital of Andorrra', function(){
+            passPromise = true;
             ccCapitalReq('AD', 'Andorra').then(function(res){
-                dump(res);
                 expect(res).toEqual(searchADRes);
             });
-        });        
+            $rootScope.$digest();
+        });
     });
     
-    xdescribe('ccCapPopulation factory', function(){
+    describe('ccCapPopulation factory', function(){
+        var ccCapPopulation, searchADRes;
         
+        beforeEach(inject(function($injector){
+            searchADRes = getJSONFixture('searchAD.json');
+            ccCapPopulation = $injector.get('ccCapPopulation');
+        }));
+        
+        it('Should return the population of Andorra capital', function(){
+            expect(ccCapPopulation(searchADRes)).toEqual(20430);
+        });
     });
     
-    xdescribe('ccNeighborsReq factory', function(){
+    describe('ccNeighborsReq factory', function(){
+        var $rootScope, ccNeighborsReq, passPromise;
+            
+        beforeEach(function(){
+            neighborsADRes = getJSONFixture('neighboursAD.json');
+            module(function($provide){
+                $provide.factory('ccRequest', function($q){
+                    return function(path){
+                        if(passPromise){
+                            return $q.when(neighborsADRes);
+                        } else {
+                            return $q.reject({});
+                        }
+                    };
+                });
+            });
+        });
         
+        beforeEach(inject(function($injector) {            
+            // Set up the mock http service responses
+            $rootScope = $injector.get('$rootScope');
+            ccNeighborsReq = $injector.get('ccNeighborsReq');
+        }));
+        
+        it('Sould return the neighbours of Andorrra (France and Spain)', function(){
+            passPromise = true;
+            ccNeighborsReq(3041565).then(function(res){
+                expect(res).toEqual(neighborsADRes);
+            });
+            $rootScope.$digest();
+        });
     });
     
-    xdescribe('ccNeighbors factory', function(){
+    describe('ccNeighbors factory', function(){
+        var ccNeighbors, neighborsADRes;
         
+        beforeEach(inject(function($injector){
+            neighborsADRes = getJSONFixture('neighboursAD.json');
+            ccNeighbors = $injector.get('ccNeighbors');
+        }));
+        
+        it('Should return the neighbours array of Andorra', function(){
+            var andorraNeigbors = [
+                {countryCode:'FR', countryName:'France'}, 
+                {countryCode:'ES', countryName:'Spain'}
+            ];
+            expect(ccNeighbors(neighborsADRes)).toEqual(andorraNeigbors);
+        });
     });
 });

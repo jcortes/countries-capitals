@@ -5,7 +5,8 @@ viewsModule.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-viewsModule.controller('CountryCtrl', ['$scope', '$rootScope', '$routeParams', 'ccCountries', 'ccCapPopulation', 'ccNeighbors', 'ccCapitalReq', 'ccNeighborsReq', function($scope, $rootScope, $routeParams, ccCountries, ccCapPopulation, ccNeighbors, ccCapitalReq, ccNeighborsReq) {
+viewsModule.controller('CountryCtrl', ['$scope', '$rootScope', '$routeParams', 'ccCountries', 'ccCapPopulation', 'ccNeighbors', 'ccCapitalReq', 'ccNeighborsReq', 
+                                       function($scope, $rootScope, $routeParams, ccCountries, ccCapPopulation, ccNeighbors, ccCapitalReq, ccNeighborsReq) {
     var vm = $scope;
     
     ccCountries.getCountry($routeParams.country).then(function(data){

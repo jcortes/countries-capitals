@@ -5,7 +5,8 @@ viewsModule.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-viewsModule.controller('CountriesCtrl', ['$scope', '$rootScope', '$location', 'ccCountries', function($scope, $rootScope, $location, ccCountries) {
+viewsModule.controller('CountriesCtrl', ['$scope', '$rootScope', '$location', 'ccCountries', 
+                                         function($scope, $rootScope, $location, ccCountries) {
     var vm = $scope;
     
     $rootScope.isLoading = true;

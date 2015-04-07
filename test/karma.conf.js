@@ -20,6 +20,9 @@ module.exports = function(config) {
       './app/bower_components/jquery/dist/jquery.js',
       './app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       './app/cc-library.js',
+      './app/cc-app-views.js',
+      './app/countries/countries.js',
+      './app/countries/country.js',
       './test/unit/**/*.js',
       // fixtures
       {pattern: './test/mock/*.json', watched: true, served: true, included: false}

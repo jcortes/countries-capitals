@@ -65,6 +65,7 @@ angular.module('ccLibrary', [])
             isNameRequired: false,
             username: 'jcortes'
         });
+        //console.log(path);
         return ccRequest(path);
     };
 }])

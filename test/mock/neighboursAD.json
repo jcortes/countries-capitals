@@ -1,1 +1,39 @@
-{"totalResultsCount":2,"geonames":[{"countryId":"3017382","adminCode1":"00","countryName":"France","fclName":"country, state, region,...","countryCode":"FR","lng":"2","fcodeName":"independent political entity","toponymName":"Republic of France","fcl":"A","name":"France","fcode":"PCLI","geonameId":3017382,"lat":"46","adminName1":"","population":64768389},{"countryId":"2510769","adminCode1":"00","countryName":"Spain","fclName":"country, state, region,...","countryCode":"ES","lng":"-4","fcodeName":"independent political entity","toponymName":"Kingdom of Spain","fcl":"A","name":"Spain","fcode":"PCLI","geonameId":2510769,"lat":"40","adminName1":"","population":46505963}]}
+{
+    "totalResultsCount": 2,
+    "geonames": [
+        {
+            "countryId": "3017382",
+            "adminCode1": "00",
+            "countryName": "France",
+            "fclName": "country, state, region,...",
+            "countryCode": "FR",
+            "lng": "2",
+            "fcodeName": "independent political entity",
+            "toponymName": "Republic of France",
+            "fcl": "A",
+            "name": "France",
+            "fcode": "PCLI",
+            "geonameId": 3017382,
+            "lat": "46",
+            "adminName1": "",
+            "population": 64768389
+        },
+        {
+            "countryId": "2510769",
+            "adminCode1": "00",
+            "countryName": "Spain",
+            "fclName": "country, state, region,...",
+            "countryCode": "ES",
+            "lng": "-4",
+            "fcodeName": "independent political entity",
+            "toponymName": "Kingdom of Spain",
+            "fcl": "A",
+            "name": "Spain",
+            "fcode": "PCLI",
+            "geonameId": 2510769,
+            "lat": "40",
+            "adminName1": "",
+            "population": 46505963
+        }
+    ]
+}
