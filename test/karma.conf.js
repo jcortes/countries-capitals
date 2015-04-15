@@ -19,6 +19,8 @@ module.exports = function(config) {
       './app/bower_components/angular-mocks/angular-mocks.js',
       './app/bower_components/jquery/dist/jquery.js',
       './app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
+      './app/bower_components/angular-route/angular-route.js',
+      './app/cc-nav.js',
       './app/cc-library.js',
       './app/cc-app-views.js',
       './app/countries/countries.js',
